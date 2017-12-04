@@ -34,6 +34,7 @@ class Vacancy extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+//            [['short_discription'], 'string'],
             [['discription'], 'string'],
             [['id_hirer', 'id_category', 'id_tech_leng'], 'integer'],
             [['date_public'], 'safe'],

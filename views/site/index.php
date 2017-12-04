@@ -23,7 +23,7 @@ $this->title = 'My Yii Application';
                             <header>
                                 <img src="assets/img/logo-google.jpg" alt="">
                                 <div class="hgroup">
-                                    <h4><?= $vacancy->discription?></h4>
+                                    <h4><?= $vacancy->shortDiscription?></h4>
                                     <h5><?= $vacancy->getHirer()->one()->name_hirer ?></h5>
                                 </div>
                                 <div class="header-meta">
