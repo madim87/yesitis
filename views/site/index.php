@@ -3,25 +3,50 @@
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
+
 ?>
+
+<!-- Site header -->
+<header class="site-header size-lg text-center" style="background-image: url(img/bg-banner1.jpg)">
+    <div class="container">
+        <div class="col-xs-12">
+            <br><br>
+            <h2><mark><?= $cntVacancy?></mark> <?= $word?> здесь и сейчас!</h2>
+            <h5 class="font-alt">найди свою работу за пару минут</h5>
+            <br><br><br>
+            <span>
+                <div >
+                    <p class="text-center"><a class="btn btn-info" href="job-list.html">разместить резюме</a></p>
+                    <p class="text-center"><a class="btn btn-info" href="job-list.html">опубликовать вакансию</a></p>
+
+                </div>
+            </span>
+
+
+        </div>
+
+    </div>
+</header>
+<!-- END Site header -->
 <main>
     <!-- Recent jobs -->
     <section>
         <div class="container">
             <header class="section-header">
-                <span>Latest</span>
-                <h2>Recent jobs</h2>
+                <span>новое</span>
+                <h2>Последние вакансии</h2>
             </header>
 
             <div class="row item-blocks-connected">
             <?php
                 foreach ($vacanciesAll as $vacancy) {
+
                     ?>
                     <!-- Job item -->
                     <div class="col-xs-12">
-                        <a class="item-block" href="job-detail.html">
+                        <a class="item-block" href="<?= yii\helpers\Url::to(['vacancy/vacancy','id' => $vacancy->id])?>">
                             <header>
-                                <img src="assets/img/logo-google.jpg" alt="">
+                                <img src="img/logo-google.jpg" alt="">
                                 <div class="hgroup">
                                     <h4><?= $vacancy->shortDiscription?></h4>
                                     <h5><?= $vacancy->getHirer()->one()->name_hirer ?></h5>
@@ -41,14 +66,14 @@ $this->title = 'My Yii Application';
             </div>
 
             <br><br>
-            <p class="text-center"><a class="btn btn-info" href="job-list.html">Browse all jobs</a></p>
+            <p class="text-center"><a class="btn btn-info" href="<?= yii\helpers\Url::to(['vacancy/vacancylist'])?>">все вакансии</a></p>
         </div>
     </section>
     <!-- END Recent jobs -->
 
 
     <!-- Facts -->
-    <section class="bg-img bg-repeat no-overlay section-sm" style="background-image: url(assets/img/bg-pattern.png)">
+    <section class="bg-img bg-repeat no-overlay section-sm" style="background-image: url(img/bg-pattern.png)">
         <div class="container">
 
             <div class="row">
@@ -132,7 +157,7 @@ $this->title = 'My Yii Application';
 
 
     <!-- Newsletter -->
-    <section class="bg-img text-center" style="background-image: url(assets/img/bg-facts.jpg)">
+    <section class="bg-img text-center" style="background-image: url(img/bg-facts.jpg)">
         <div class="container">
             <h2><strong>Subscribe</strong></h2>
             <h6 class="font-alt">Get weekly top new jobs delivered to your inbox</h6>

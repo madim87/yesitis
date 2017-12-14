@@ -4,12 +4,13 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
+    'language' => 'ru-RU',
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'modules' => [
         'admin' => [
-            'class' => 'app\modules\admin',
+            'class' => 'app\modules\admin\AdminModule',
         ],
     ],
     'aliases' => [
@@ -17,6 +18,9 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'baseUrl'=> '',
@@ -55,6 +59,9 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '/vacancies'=>'vacancy/vacancylist',
+                '/vacancy<id:\d+>'=>'vacancy/vacancy',
+                '/'=>'site/index'
             ],
         ],
 

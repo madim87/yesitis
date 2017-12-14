@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\User;
 use app\models\Vacancy;
 use Yii;
 use yii\filters\AccessControl;
@@ -62,9 +63,24 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $vacancies = Vacancy::find()->all();
-        return $this->render('index',['vacanciesAll' => $vacancies]);
+
+        $cnt = Vacancy::find()->count();
+        $cnt = 5;
+//        '{vacancyCount, plural, one{vacancy} other{vacancies}}' => '{vacancyCount, plural, one{вакансия} few{ вакансии} many{вакансий} other{ вакансии}}';
+
+        $str = Yii::t('app', '{vacancyCount, plural, one{вакансия} few{ вакансии} many{вакансий} other{ вакансии}}', ['vacancyCount' => $cnt],`ru`)." ".
+            Yii::t('app', '{vacancyCount, plural, one{доступна}  other{ доступны}}', ['vacancyCount' => $cnt]);
+ //       $str = Yii::powered('');
+       // $str = Yii::t('app', '{n} запись|записи|записей', $cnt);
+
+        $last = Vacancy::find()->orderBy(['id'=>SORT_DESC])->limit(5)->all();
+        return $this->render('index',[
+            'vacanciesAll' => $last,
+            'cntVacancy' => $cnt,
+            'word' => $str]);
     }
+
+
 
     /**
      * Login action.
@@ -121,8 +137,17 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionAbout()
+/*    public function actionAbout()
     {
+       /* $role = Yii::$app->authManager->createRole('admin');
+        $role->description = 'Админ';
+        $role= Yii::$app->authManager->getRole('admin');
+        $user = User::findOne(2);
+
+       // Yii::$app->authManager->add($role);
+        Yii::$app->authManager->assign($role, $user->getId());
         return $this->render('about');
-    }
+    }*/
+
+
 }

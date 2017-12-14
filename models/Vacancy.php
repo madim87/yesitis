@@ -82,4 +82,24 @@ class Vacancy extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Hirer::className(), ['id' => 'id_hirer']);
     }
+
+    public function getVacExperience()
+    {
+        return $this->hasOne(VacExperience::className(), ['id' => 'experience_id']);
+    }
+
+    public function getTypeWorkTime()
+    {
+        return $this->hasOne(TypeWorkTime::className(), ['id' => 'type_work_id']);
+    }
+
+    public function getCurrency()
+    {
+        return $this->hasOne(Currency::className(), ['id' => 'currency_id']);
+    }
+
+    public function getSkillStatus()
+    {
+        return $this->hasOne(SkillStatus::className(), ['id' => 'status_id']);
+    }
 }

@@ -27,8 +27,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
 
     <!-- Styles -->
-    <link href="css/app.min.css" rel="stylesheet">
-    <link href="css/custom.css" rel="stylesheet">
+
 
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Oswald:100,300,400,500,600,800%7COpen+Sans:300,400,500,600,700,800%7CMontserrat:400,700' rel='stylesheet' type='text/css'>
@@ -51,8 +50,8 @@ AppAsset::register($this);
             <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
 
             <div class="logo-wrapper">
-                <a class="logo" href="index.html"><img src="assets/img/logo.png" alt="logo"></a>
-                <a class="logo-alt" href="index.html"><img src="assets/img/logo-alt.png" alt="logo-alt"></a>
+                <a class="logo" href="<?=yii\helpers\Url::to(['site/index'])?>"><img src="img/logo.png" alt="logo"></a>
+                <a class="logo-alt" href="<?=yii\helpers\Url::to(['site/index'])?>"><img src="img/logo-alt.png" alt="logo-alt"></a>
             </div>
 
         </div>
@@ -67,7 +66,7 @@ AppAsset::register($this);
         <!-- Navigation menu -->
         <ul class="nav-menu">
             <li>
-                <a class="active" href="index.html">Home</a>
+                <a class="active" href="index.html">Главная</a>
                 <ul>
                     <li><a class="active" href="index.html">Version 1</a></li>
                     <li><a href="index-2.html">Version 2</a></li>
@@ -121,34 +120,10 @@ AppAsset::register($this);
 <!-- END Navigation bar -->
 
 
-<!-- Site header -->
-<header class="site-header size-lg text-center" style="background-image: url(assets/img/bg-banner1.jpg)">
-    <div class="container">
-        <div class="col-xs-12">
-            <br><br>
-            <h2>We offer <mark>1,259</mark> job vacancies right now!</h2>
-            <h5 class="font-alt">Find your desire one in a minute</h5>
-            <br><br><br>
-            <form class="header-job-search">
-                <div class="input-keyword">
-                    <input type="text" class="form-control" placeholder="Job title, skills, or company">
-                </div>
 
-                <div class="input-location">
-                    <input type="text" class="form-control" placeholder="City, state or zip">
-                </div>
+<div class="container">
 
-                <div class="btn-search">
-                    <button class="btn btn-primary" type="submit">Find jobs</button>
-                    <a href="job-list.html">Advanced Job Search</a>
-                </div>
-            </form>
-        </div>
-
-    </div>
-</header>
-<!-- END Site header -->
-
+</div>
 
 <!-- Main container -->
 <?= $content ?>
@@ -197,7 +172,7 @@ AppAsset::register($this);
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-sm-6 col-xs-12">
-                <p class="copyright-text">Copyrights &copy; 2016 All Rights Reserved by <a href="http://themeforest.net/user/shamsoft">ShaMSofT</a>.</p>
+                <p class="copyright-text">Copyrights © 2016 All Rights Reserved by <a href="http://themeforest.net/user/shamsoft">ShaMSofT</a>.</p>
             </div>
 
             <div class="col-md-4 col-sm-6 col-xs-12">
@@ -222,8 +197,8 @@ AppAsset::register($this);
 <!-- END Back to top button -->
 
 <!-- Scripts -->
-<script src="assets/js/app.min.js"></script>
-<script src="assets/js/custom.js"></script>
+
+
 
 <?php $this->endBody() ?>
 </body>
