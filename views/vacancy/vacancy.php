@@ -7,19 +7,22 @@
                 <h1><?=$vacancy->name?></h1>
                 <h3><a href="#"><?=$vacancy->getHirer()->one()->name_hirer?></a></h3>
             </div>
-            <time datetime="<?=$vacancy->date_public?>"><?=$vacancy->date_public?></time>
+            <?php
+            Yii::$app->formatter->locale = 'ru-RU';
+            ?>
+            <time datetime="<?=$vacancy->date_public?>"><?=Yii::$app->formatter->asDate($vacancy->date_public)?></time>
             <hr>
             <p class="lead"><?=$vacancy->shortDiscription?></p>
 
             <ul class="details cols-3">
                 <li>
                     <i class="fa fa-map-marker"></i>
-                    <span>Menlo Park, CA</span>
+                    <span><?=$vacancy->getCity()->one()->name.", ".$vacancy->adress?></span>
                 </li>
 
                 <li>
                     <i class="fa fa-briefcase"></i>
-                    <span><?=$vacancy->getTypeWorkTime()->one()->type_work?></span>
+                    <span>занятость: <?=$vacancy->getTypeWorkTime()->one()->type_work?></span>
                 </li>
 
                 <li>

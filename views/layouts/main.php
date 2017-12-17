@@ -66,7 +66,7 @@ AppAsset::register($this);
         <!-- Navigation menu -->
         <ul class="nav-menu">
             <li>
-                <a class="active" href="index.html">Главная</a>
+                <a class="active" href="<?=yii\helpers\Url::to(['site/index'])?>">Главная</a>
                 <ul>
                     <li><a class="active" href="index.html">Version 1</a></li>
                     <li><a href="index-2.html">Version 2</a></li>

@@ -102,4 +102,9 @@ class Vacancy extends \yii\db\ActiveRecord
     {
         return $this->hasOne(SkillStatus::className(), ['id' => 'status_id']);
     }
+
+    public function getCity()
+    {
+        return $this->hasOne(City::className(), ['id' => 'id_city']);
+    }
 }

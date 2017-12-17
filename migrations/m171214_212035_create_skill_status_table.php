@@ -12,13 +12,13 @@ class m171214_212035_create_skill_status_table extends Migration
      */
     public function up()
     {
-        $this->createTable('skill_status', [
+      /*  $this->createTable('skill_status', [
             'id' => $this->primaryKey(),
             'status' => $this->string(20)
         ]);
 
         $this->addColumn('vacancy','status_id',$this->integer());
-        $this->addForeignKey('status-to-vac','vacancy','status_id','skill_status','id');
+        $this->addForeignKey('status-to-vac','vacancy','status_id','skill_status','id');*/
     }
 
     /**
