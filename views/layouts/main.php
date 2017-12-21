@@ -73,7 +73,7 @@ AppAsset::register($this);
                 </ul>
             </li>
             <li>
-                <a href="#">Position</a>
+                <a href="<?=yii\helpers\Url::to(['vacancy/vacancylist'])?>">Вакансии</a>
                 <ul>
                     <li><a href="job-list-1.html">Browse jobs - 1</a></li>
                     <li><a href="job-list-2.html">Browse jobs - 2</a></li>
@@ -84,7 +84,7 @@ AppAsset::register($this);
                 </ul>
             </li>
             <li>
-                <a href="#">Resume</a>
+                <a href="<?=yii\helpers\Url::to(['summary/summarylist'])?>">Резюме</a>
                 <ul>
                     <li><a href="resume-list.html">Browse resumes</a></li>
                     <li><a href="resume-detail.html">Resume detail</a></li>
@@ -93,7 +93,7 @@ AppAsset::register($this);
                 </ul>
             </li>
             <li>
-                <a href="#">Company</a>
+                <a href="#">Компании</a>
                 <ul>
                     <li><a href="company-list.html">Browse companies</a></li>
                     <li><a href="company-detail.html">Company detail</a></li>

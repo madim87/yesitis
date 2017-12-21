@@ -5,6 +5,8 @@
 $this->title = 'Vacancies';
 use yii\widgets\LinkPager;
 ?>
+
+
 <!-- Page header -->
     <header class="page-header bg-img" style="background-image: url(assets/img/bg-banner1.jpg);">
       <div class="container page-name">
@@ -42,7 +44,7 @@ use yii\widgets\LinkPager;
               <div class="checkall-group">
                   <div class="radio">
                       <input type="radio" id="0" name="typeTime" value="0" checked>
-                      <label for="0">Любой <small>(<?= $vacancies->count()?>)</small></label>
+                      <label for="0">Любая <small>(<?= $cntVac?>)</small></label>
                   </div>
                 <?php
                 foreach ($contracts as $contract) {
@@ -63,7 +65,7 @@ use yii\widgets\LinkPager;
               <div class="checkall-group">
                 <div class="radio">
                   <input type="radio" id="rete0" name="wage" value="0" checked>
-                  <label for="rate0">Любая</label>
+                  <label for="rate0">Любая <small>(<?= $cntVac?>)</small></label>
                 </div>
 
                 <div class="radio">
@@ -94,7 +96,7 @@ use yii\widgets\LinkPager;
               <div class="checkall-group">
                 <div class="radio">
                   <input type="radio" id="cat0" name="profObl" value="0" checked>
-                  <label for="cat0">Любая</label>
+                  <label for="cat0">Любая <small>(<?= $cntVac?>)</small></label>
                 </div>
                   <?php
                   foreach ($categories as $category) {
@@ -148,7 +150,7 @@ use yii\widgets\LinkPager;
                 ?>
                 <!-- Job item -->
                 <div class="col-xs-12">
-                    <a class="item-block" href="job-detail.html">
+                    <a class="item-block" href="<?= yii\helpers\Url::to(['vacancy/vacancy','id' => $model->id])?>">
                         <header>
                             <img src="assets/img/logo-google.jpg" alt="">
                             <div class="hgroup">
@@ -199,3 +201,5 @@ use yii\widgets\LinkPager;
       </section>
     </main>
     <!-- END Main container -->
+<script src="assets/js/app.min.js"></script>
+<script src="assets/js/custom.js"></script>

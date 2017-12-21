@@ -126,9 +126,17 @@ class VacancyController extends Controller
         $contract = TypeWorkTime::find()->all();
         $category = Category::find()->all();
         $region = Region::find();
-        $regionJoin = Vacancy::find()->select(['vacancy.id', 'vacancy.name', 'city.name', 'city.id_region'])->join('INNER JOIN', 'city', 'vacancy.id_city=city.id');
+        $regionJoin = Vacancy::find()
+            ->select([
+                'vacancy.id',
+                'vacancy.name',
+                'city.name',
+                'city.id_region'
+            ])
+            ->join('INNER JOIN', 'city', 'vacancy.id_city=city.id');
         $city = City::find();
         $vacancies = Vacancy::find();
+        $cntVac = Vacancy::find()->count();
         return $this->render('vacancylist',[
             'models' => $models,
             'pages' => $pages,
@@ -138,7 +146,8 @@ class VacancyController extends Controller
             'count' => $cnt,
             'regions' => $region,
             'regionJoins'=> $regionJoin,
-            'cities' => $city
+            'cities' => $city,
+            'cntVac' => $cntVac
             ]);
     }
 

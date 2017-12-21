@@ -50,4 +50,9 @@ class Technology extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Vacancy::className(), ['id_tech_leng' => 'id']);
     }
+
+    public function getSummary(){
+        return $this->hasMany(Summary::className(), ['id' => 'id_summ'])
+            ->viaTable('summ_tech', ['id_tech' => 'id']);
+    }
 }
