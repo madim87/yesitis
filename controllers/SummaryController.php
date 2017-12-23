@@ -11,8 +11,12 @@ namespace app\controllers;
 
 use app\models\Aspirant;
 use app\models\Category;
+use app\models\City;
+use app\models\Education;
+use app\models\Experiens;
 use app\models\Region;
 use app\models\Summary;
+use app\models\SummTech;
 use app\models\Technology;
 use app\models\TypeWorkTime;
 use app\models\VacExperience;
@@ -98,6 +102,7 @@ class SummaryController extends Controller
 
 
         $query = $query
+            ->andWhere(['public'=>1])
             ->with('aspirant.city')
             ->orderBy(['date_public'=>SORT_DESC]);
         $countQuery = clone $query;
@@ -118,5 +123,30 @@ class SummaryController extends Controller
             'regionJoin' => $regionJoin,
             'cntSum' => $cntSumm
         ]);
+    }
+
+    public function actionSummary($id)
+    {
+        $summary = Summary::findOne(['id'=>$id]);
+        $id_city = $summary->getAspirant()->one()->id_city;
+        $city = City::findOne(['id'=>$id_city]);
+        $skills = SummTech::find()
+            ->where(['id_summary'=>$id])
+            ->all();
+        $technologies = Technology::find()->all();
+        $education = Education::find()
+            ->where(['id_aspirant'=>$id])
+            ->all();
+        $experiences = Experiens::find()
+            ->where(['id_aspirant'=>$id])
+            ->all();
+        return $this->render('summary',[
+            'summary'=>$summary,
+            'city'=>$city,
+            'educations'=>$education,
+            'technologies'=>$technologies,
+            'experiences'=>$experiences
+            ]);
+
     }
 }

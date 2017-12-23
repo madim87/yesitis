@@ -65,7 +65,7 @@ class SiteController extends Controller
     {
 
         $cnt = Vacancy::find()->count();
-        $cnt = 5;
+
 //        '{vacancyCount, plural, one{vacancy} other{vacancies}}' => '{vacancyCount, plural, one{вакансия} few{ вакансии} many{вакансий} other{ вакансии}}';
 
         $str = Yii::t('app', '{vacancyCount, plural, one{вакансия} few{ вакансии} many{вакансий} other{ вакансии}}', ['vacancyCount' => $cnt],`ru`)." ".
@@ -137,17 +137,10 @@ class SiteController extends Controller
      *
      * @return string
      */
-/*    public function actionAbout()
+    public function actionAbout()
     {
-       /* $role = Yii::$app->authManager->createRole('admin');
-        $role->description = 'Админ';
-        $role= Yii::$app->authManager->getRole('admin');
-        $user = User::findOne(2);
-
-       // Yii::$app->authManager->add($role);
-        Yii::$app->authManager->assign($role, $user->getId());
-        return $this->render('about');
-    }*/
+       return $this->render('about');
+    }
 
 
 }

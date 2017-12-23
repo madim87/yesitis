@@ -61,9 +61,13 @@ $config = [
             'rules' => [
                 '/vacancies'=>'vacancy/vacancylist',
                 '/vacancy<id:\d+>'=>'vacancy/vacancy',
+                '/addvacancy'=>'vacancy/vacancyadd',
                 '/summaries'=>'summary/summarylist',
                 '/summary<id:\d+>'=>'summary/summary',
-                '/'=>'site/index'
+                '/hirers'=>'hirer/hirerlist',
+                '/hirer<id:\d+>'=>'hirer/hirer',
+                '/'=>'site/index',
+                '/about'=>'site/about'
             ],
         ],
 

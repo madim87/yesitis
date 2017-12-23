@@ -68,40 +68,32 @@ AppAsset::register($this);
             <li>
                 <a class="active" href="<?=yii\helpers\Url::to(['site/index'])?>">Главная</a>
                 <ul>
-                    <li><a class="active" href="index.html">Version 1</a></li>
-                    <li><a href="index-2.html">Version 2</a></li>
+                    <li><a class="active" href="<?=yii\helpers\Url::to(['site/index'])?>">На главную</a></li>
+                    <li><a href="<?=yii\helpers\Url::to(['site/about'])?>">О проекте</a></li>
                 </ul>
             </li>
             <li>
                 <a href="<?=yii\helpers\Url::to(['vacancy/vacancylist'])?>">Вакансии</a>
                 <ul>
-                    <li><a href="job-list-1.html">Browse jobs - 1</a></li>
-                    <li><a href="job-list-2.html">Browse jobs - 2</a></li>
-                    <li><a href="job-list-3.html">Browse jobs - 3</a></li>
-                    <li><a href="job-detail.html">Job detail</a></li>
-                    <li><a href="job-add.html">Post a job</a></li>
-                    <li><a href="job-manage.html">Manage jobs</a></li>
+                    <li><a href="<?=yii\helpers\Url::to(['vacancy/vacancylist'])?>">Список вакансий</a></li>
+                    <li><a href="job-list-2.html">Опубликовать вакансию</a></li>
                 </ul>
             </li>
             <li>
                 <a href="<?=yii\helpers\Url::to(['summary/summarylist'])?>">Резюме</a>
                 <ul>
-                    <li><a href="resume-list.html">Browse resumes</a></li>
-                    <li><a href="resume-detail.html">Resume detail</a></li>
-                    <li><a href="resume-add.html">Create a resume</a></li>
-                    <li><a href="resume-manage.html">Manage resumes</a></li>
+                    <li><a href="<?=yii\helpers\Url::to(['summary/summarylist'])?>">Список резюме</a></li>
+                    <li><a href="resume-detail.html">Разместить резюме</a></li>
                 </ul>
             </li>
             <li>
-                <a href="#">Компании</a>
+                <a href="<?=yii\helpers\Url::to(['hirer/hirerlist'])?>">Компании</a>
                 <ul>
-                    <li><a href="company-list.html">Browse companies</a></li>
-                    <li><a href="company-detail.html">Company detail</a></li>
-                    <li><a href="company-add.html">Create a company</a></li>
-                    <li><a href="company-manage.html">Manage companies</a></li>
+                    <li><a href="<?=yii\helpers\Url::to(['hirer/hirerlist'])?>">Каталог компаний</a></li>
+                    <li><a href="company-detail.html">Добавить компанию</a></li>
                 </ul>
             </li>
-            <li>
+<!--            <li>
                 <a href="#">Pages</a>
                 <ul>
                     <li><a href="page-about.html">About</a></li>
@@ -111,7 +103,7 @@ AppAsset::register($this);
                     <li><a href="page-typography.html">Typography</a></li>
                     <li><a href="page-ui-elements.html">UI elements</a></li>
                 </ul>
-            </li>
+            </li> -->
         </ul>
         <!-- END Navigation menu -->
 

@@ -11,10 +11,12 @@ namespace app\controllers;
 
 use app\models\Category;
 use app\models\City;
+use app\models\Currency;
 use app\models\Region;
 use app\models\SkillStatus;
 use app\models\TypeWorkTime;
 use app\models\Vacancy;
+use app\models\VacExperience;
 use yii\data\Pagination;
 use yii\web\Controller;
 
@@ -117,7 +119,9 @@ class VacancyController extends Controller
             $query = $query->andWhere($paramReg);
         }
 //==========формирование условий для фильтра по ключевым словам
-        $query = $query->orderBy(['id' => SORT_DESC]);
+        $query = $query
+            ->andWhere(['public'=>1])
+            ->orderBy(['id' => SORT_DESC]);
         $countQuery = clone $query;
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize'=>3]);
         $models = $query->offset($pages->offset)->limit($pages->limit)->all();
@@ -151,10 +155,27 @@ class VacancyController extends Controller
             ]);
     }
 
-    public function actionVacancy($id){
+    public function actionVacancy($id)
+    {
         //Yii::$app->formatter->locale = 'ru-RU';
         $vacancy =  Vacancy::findOne(['id'=>$id]);
         return $this->render('vacancy',['vacancy'=>$vacancy]);
+    }
+
+    public function actionVacancyadd()
+    {
+        $typeworks = TypeWorkTime::find()->all();
+        $cities = City::find()->all();
+        $currencies = Currency::find()->all();
+        $vac_experiences = VacExperience::find()->all();
+        $skills = SkillStatus::find()->all();
+        return $this->render('vacancyadd',[
+            'typeworks'=>$typeworks,
+            'cities'=>$cities,
+            'currencies'=>$currencies,
+            'vacExperiences'=>$vac_experiences,
+            'skills'=>$skills
+        ]);
     }
 
 }

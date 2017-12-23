@@ -25,6 +25,10 @@ use yii\widgets\LinkPager;
             <div class="form-group col-xs-12 col-sm-3">
                   <h6>Регион</h6>
                   <div class="checkall-group">
+                      <div class="checkbox">
+                          <input type="checkbox" id="reg0" name="regionzero" value="0" checked>
+                          <label for="reg0">Любой <small>(<?=$cntVac?>)</small></label>
+                      </div>
                       <?php
                       foreach ($regions->all() as $region) {
                           ?>

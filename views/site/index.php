@@ -17,7 +17,7 @@ $this->title = 'My Yii Application';
             <span>
                 <div >
                     <p class="text-center"><a class="btn btn-info" href="job-list.html">разместить резюме</a></p>
-                    <p class="text-center"><a class="btn btn-info" href="job-list.html">опубликовать вакансию</a></p>
+                    <p class="text-center"><a class="btn btn-info" href="<?=yii\helpers\Url::to(['vacancy/vacancyadd'])?>">опубликовать вакансию</a></p>
 
                 </div>
             </span>

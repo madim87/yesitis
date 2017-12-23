@@ -99,7 +99,12 @@ use yii\web\Controller;
                 <div class="form-group col-xs-12 col-sm-3">
                     <h6>Регион</h6>
                     <div class="checkall-group">
+                        <div class="checkbox">
+                            <input type="checkbox" id="reg0" name="regionzero" value="0" checked>
+                            <label for="reg0">Любой <small>(<?=$cntSum?>)</small></label>
+                        </div>
                         <?php
+ //                       echo "<pre>".print_r($_GET['region'],true)."</pre>";
                         foreach ($regions->all() as $region) {
                             ?>
                             <div class="checkbox">
@@ -153,7 +158,7 @@ use yii\web\Controller;
                 ?>
                 <!-- Resume detail -->
                 <div class="col-xs-12">
-                    <a class="item-block" href="resume-detail.html">
+                    <a class="item-block" href="<?=yii\helpers\Url::to(['summary/summary','id'=>$summary->id])?>">
 
                         <header>
                             <img class="resume-avatar" src="assets/img/avatar.jpg" alt="">
@@ -168,11 +173,12 @@ use yii\web\Controller;
 
                             <div class="tag-list">
                                 <?php
-  //                              foreach ($technologies as $technology) {
+                                $skills = $summary->getTechnology()->all();
+                                foreach ($skills as $skill) {
                                 ?>
-                                    <span><?=$technology?></span>
+                                    <span><?=$skill->technology?></span>
                                 <?php
- //                               }
+                                }
                                 ?>
                             </div>
                         </div>

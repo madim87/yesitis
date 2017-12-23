@@ -71,4 +71,9 @@ class Hirer extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Vacancy::className(), ['id_hirer' => 'id']);
     }
+
+    public function getCity()
+    {
+        return $this->hasOne(City::className(), ['id' => 'id_city']);
+    }
 }
