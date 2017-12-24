@@ -4,7 +4,11 @@
  * User: madim
  * Date: 23.12.2017
  * Time: 22:59
- */
+*/
+
+use mihaildev\ckeditor\CKEditor;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 ?>
 
 <!-- Page header -->
@@ -17,134 +21,158 @@
     <div class="container">
 
         <div class="row">
+        <?php $form = ActiveForm::begin()?>
             <div class="form-group col-xs-12 col-sm-6">
-                <input type="text" class="form-control input-lg" placeholder="Название вакансии, тайтл" name="name">
-            </div>
-
-            <div class="form-group col-xs-12 col-sm-6">
-                <select class="form-control selectpicker">
-                    <option>Select a company</option>
-                    <option>Google</option>
-                    <option>Microsoft</option>
-                    <option>Apple</option>
-                    <option>Facebook</option>
-                </select>
-                <a class="help-block" href="company-add.html">Add new company</a>
+                <?=$form
+                    ->field($vacancy_mod, 'name')
+                    ->label('')
+                    ->input('text',[
+                        'class'=>'form-control input-lg',
+                        'placeholder'=>'Название вакансии, тайтл'
+                    ])?>
             </div>
 
             <div class="form-group col-xs-12">
-                <textarea class="form-control" rows="3" placeholder="Краткое описание" name="shortDiscription"></textarea>
-            </div>
-
-            <div class="form-group col-xs-12">
-                <input type="text" class="form-control" placeholder="Application URL">
+                <?=$form
+                    ->field($vacancy_mod, 'shortDiscription')
+                    ->label('')
+                    ->textarea([
+                        'class'=>'form-control',
+                        'placeholder'=>'Краткое описание'
+                    ])?>
             </div>
 
             <div class="form-group col-xs-12 col-sm-6 col-md-4">
                 <div class="input-group input-group-sm">
-                    <span class="input-group-addon"><i class="fa fa-map-marker" ></i></span>
-                    <input type="text" class="form-control" placeholder="Улица, номер дома, помещение" name="address">
+
+                    <?php
+                    $items = $items_city;
+                    $params = [
+                        'prompt' => 'выберете город',
+                        'class' => 'form-control selectpicker'
+                    ];
+                    echo $form
+                        ->field($vacancy_mod, 'id_city')
+                        ->label('')
+                        ->dropDownList($items,$params)
+
+                    ?>
+
                 </div>
             </div>
 
             <div class="form-group col-xs-12 col-sm-6 col-md-4">
                 <div class="input-group input-group-sm">
-                    <span class="input-group-addon"><i class="fa fa-map-marker" ></i></span>
-                    <select class="form-control selectpicker">
+
+                    <?=$form
+                        ->field($vacancy_mod, 'adress')
+                        ->label('')
+                        ->input('text',[
+                            'class'=>'form-control',
+                            'placeholder'=>'укажите улицу и номер дома'
+                        ])?>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                <div class="input-group input-group-sm">
+
                         <?php
-                        foreach ($cities as $city) {
-                            ?>
-                            <option name="id_city" value="<?=$city->id?>"><?=$city->name?></option>
-                            <?php
-                        }
+                        $items = $items_typework;
+                        $params = [
+                            'prompt' => 'выберете тип занятости',
+                            'class' => 'form-control selectpicker'
+                        ];
+                        echo $form
+                            ->field($vacancy_mod, 'type_work_id')
+                            ->label('')
+                            ->dropDownList($items,$params)
                         ?>
-                    </select>
-                    <span class="input-group-addon">город</i></span>
+
                 </div>
             </div>
 
             <div class="form-group col-xs-12 col-sm-6 col-md-4">
                 <div class="input-group input-group-sm">
-                    <span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
-                    <select class="form-control selectpicker">
+
+                    <?=$form
+                        ->field($vacancy_mod,'wage')
+                        ->label('')
+                        ->input('text',[
+                            'class'=>'form-control',
+                            'placeholder'=>'укажите зарабатную плату'])
+                    ?>
+
+                </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                <div class="input-group input-group-sm">
+
+
                         <?php
-                        foreach ($typeworks as $typework) {
-                            ?>
-                            <option name="typework" value="<?=$typework->id?>"><?=$typework->type_work?></option>
-                            <?php
-                        }
+                        $items = $items_currency;
+                        $params = [
+                            'prompt' => 'выберете валюту',
+                            'class' => 'form-control selectpicker'
+                        ];
+                        echo $form
+                            ->field($vacancy_mod, 'currency_id')
+                            ->label('')
+                            ->dropDownList($items,$params)
                         ?>
-                    </select>
-                    <span class="input-group-addon">тип занятости</i></span>
+
                 </div>
             </div>
 
             <div class="form-group col-xs-12 col-sm-6 col-md-4">
                 <div class="input-group input-group-sm">
-                    <span class="input-group-addon"><i class="fa fa-money"></i></span>
-                    <input type="text" class="form-control" placeholder="заработная плата" name="wage">
+
+                    <?=$form
+                        ->field($vacancy_mod,'work_time')
+                        ->label('')
+                        ->input('text',[
+                            'class'=>'form-control',
+                            'placeholder'=>'рабочая неделя(ч/неделю)'])
+                    ?>
                 </div>
             </div>
 
             <div class="form-group col-xs-12 col-sm-6 col-md-4">
                 <div class="input-group input-group-sm">
-                    <span class="input-group-addon"><i class="fa fa-money"></i></span>
-                    <select class="form-control selectpicker">
+
                         <?php
-                        foreach ($currencies as $currency) {
-                            ?>
-                            <option name="currency_id" value="<?=$currency->id?>"><?=$currency->name?></option>
-                            <?php
-                        }
+                        $items = $items_experience;
+                        $params = [
+                            'prompt' => 'требуемый опыт работы',
+                            'class' => 'form-control selectpicker'
+                        ];
+                        echo $form
+                            ->field($vacancy_mod, 'experience_id')
+                            ->label('')
+                            ->dropDownList($items,$params);
                         ?>
-                    </select>
-                    <span class="input-group-addon">валюта</i></span>
                 </div>
             </div>
 
-            <div class="form-group col-xs-12 col-sm-6 col-md-4">
-                <div class="input-group input-group-sm">
-                    <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-                    <input type="text" class="form-control" placeholder="рабочее время" name="work_time">
-                    <span class="input-group-addon">часов в неделю</span>
-                </div>
-            </div>
 
             <div class="form-group col-xs-12 col-sm-6 col-md-4">
                 <div class="input-group input-group-sm">
-                    <span class="input-group-addon"><i class="fa fa-flask"></i></span>
-                    <select class="form-control selectpicker">
+
                         <?php
-                        foreach ($vacExperiences as $vacExperience)
-                        {
-                            ?>
-                            <option name="experience_id" value="<?=$vacExperience->id?>"><?=$vacExperience->value?></option>
-                            <?php
-                        }
+                        $items = $items_skills;
+                        $params = [
+                            'prompt' => 'требуемый уровень специалиста',
+                            'class' => 'form-control selectpicker'
+                        ];
+                        echo $form
+                            ->field($vacancy_mod, 'status_id')
+                            ->label('')
+                            ->dropDownList($items,$params);
                         ?>
-                    </select>
-                    <span class="input-group-addon">опыт работы</i></span>
                 </div>
             </div>
-
-
-            <div class="form-group col-xs-12 col-sm-6 col-md-4">
-                <div class="input-group input-group-sm">
-                    <span class="input-group-addon"><i class="fa fa-certificate"></i></span>
-                    <select class="form-control selectpicker" multiple>
-                        <?php
-                        foreach ($skills as $skill)
-                        {
-                            ?>
-                            <option name="status_id" value="<?=$skill->id?>"><?=$skill->status?></option>
-                            <?php
-                        }
-                        ?>
-                    </select>
-                    <span class="input-group-addon">статус</i></span>
-                </div>
-            </div>
-
+        <?php ActiveForm::end()?>
 
         </div>
 
@@ -172,15 +200,85 @@
 
             <header class="section-header">
                 <span>Description</span>
-                <h2>Job detail</h2>
-                <p>Write about your company, job description, skills required, benefits, etc.</p>
+                <h2>Описание вакансии</h2>
+                <p>Напишите о Вашей компании, условиях работы и требуемых навыках</p>
             </header>
+            <?=$form
+                ->field($vacancy_mod,'discription')
+                ->widget(CKEditor::className(), [
+                        'editorOptions'=>[
+                                'present' => 'basic',
+                                'rows'=>1,
+                                'cols'=>1,
+                                'inline' => false
+                            ],
+                ])
+                ->label('Описание вакансии')
+                ->textarea()
+            ?>
+            <?=$form
+                ->field($vacancy_mod,'demands')
+                ->widget(CKEditor::className(), [
+                    'editorOptions'=>[
+                        'present' => 'basic',
+                        'rows'=>6,
+                        'cols'=>100,
+                        'inline' => false
+                    ],
+                ])
+                ->label('требования к сотруднику')
+                ->textarea()
+            ?>
+            <?=$form
+                ->field($vacancy_mod,'conditions')
+                ->widget(CKEditor::className(), [
+                    'editorOptions'=>[
+                        'present' => 'basic',
+                        'rows'=>1,
+                        'cols'=>1,
+                        'inline' => false
+                    ],
+                ])
+                ->label('условия труда')
+                ->textarea()
+            ?>
 
-            <textarea class="summernote-editor"></textarea>
+
+
+
+
 
         </div>
     </section>
     <!-- END Job detail -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <!-- Submit -->

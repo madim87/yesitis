@@ -18,8 +18,9 @@ use app\models\TypeWorkTime;
 use app\models\Vacancy;
 use app\models\VacExperience;
 use yii\data\Pagination;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
-
+use app\models\Hirer;
 
 class VacancyController extends Controller
 {
@@ -164,18 +165,34 @@ class VacancyController extends Controller
 
     public function actionVacancyadd()
     {
+
         $typeworks = TypeWorkTime::find()->all();
+        $items_typework = ArrayHelper::map($typeworks,'id','type_work');
         $cities = City::find()->all();
+        $city_params = ArrayHelper::map($cities,'id','name');
         $currencies = Currency::find()->all();
+        $items_currency = ArrayHelper::map($currencies,'id','name');
         $vac_experiences = VacExperience::find()->all();
+        $items_experience = ArrayHelper::map($vac_experiences,'id','value');
         $skills = SkillStatus::find()->all();
+        $items_skills = ArrayHelper::map($skills,'id','status');
+//        print_r($items_skills);
         return $this->render('vacancyadd',[
             'typeworks'=>$typeworks,
             'cities'=>$cities,
+            'items_city'=>$city_params,
+            'items_typework'=>$items_typework,
+            'items_currency'=>$items_currency,
+            'items_experience'=>$items_experience,
+            'items_skills'=>$items_skills,
             'currencies'=>$currencies,
             'vacExperiences'=>$vac_experiences,
-            'skills'=>$skills
+            'skills'=>$skills,
+            'vacancy_mod'=> new Vacancy(),
+
+
         ]);
     }
+
 
 }

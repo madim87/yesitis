@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\FormCity;
 use app\models\User;
 use app\models\Vacancy;
 use Yii;
@@ -142,5 +143,9 @@ class SiteController extends Controller
        return $this->render('about');
     }
 
+    public function actionPigi(){
+        $form_city = new FormCity();
+        return $this->render('pigi',compact('form_city'));
+    }
 
 }

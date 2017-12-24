@@ -9,9 +9,21 @@ use Yii;
  *
  * @property int $id
  * @property string $name_hirer
+ * @property string $working
+ * @property string $description
+ * @property string $short_desc
+ * @property string $email
+ * @property string $telephone
+ * @property string $site
+ * @property int $year_begin
+ * @property int $id_city
  * @property string $address
+ * @property int $user_id
+ * @property int $people
  *
  * @property Correspondence[] $correspondences
+ * @property City $city
+ * @property User $user
  * @property StatisticViewSummary[] $statisticViewSummaries
  * @property Vacancy[] $vacancies
  */
@@ -31,8 +43,16 @@ class Hirer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['description', 'short_desc'], 'string'],
+            [['file'], 'file'],
+            [['year_begin', 'id_city', 'user_id', 'people'], 'integer'],
             [['name_hirer'], 'string', 'max' => 200],
+            [['working'], 'string', 'max' => 250],
+            [['email'], 'string', 'max' => 50],
+            [['telephone', 'site'], 'string', 'max' => 21],
             [['address'], 'string', 'max' => 400],
+            [['id_city'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['id_city' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -43,8 +63,19 @@ class Hirer extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'file'=>'Photo',
             'name_hirer' => 'Name Hirer',
+            'working' => 'Working',
+            'description' => 'Description',
+            'short_desc' => 'Short Desc',
+            'email' => 'Email',
+            'telephone' => 'Telephone',
+            'site' => 'Site',
+            'year_begin' => 'Year Begin',
+            'id_city' => 'Id City',
             'address' => 'Address',
+            'user_id' => 'User ID',
+            'people' => 'People',
         ];
     }
 
@@ -54,6 +85,22 @@ class Hirer extends \yii\db\ActiveRecord
     public function getCorrespondences()
     {
         return $this->hasMany(Correspondence::className(), ['id_hirer' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCity()
+    {
+        return $this->hasOne(City::className(), ['id' => 'id_city']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**
@@ -70,10 +117,5 @@ class Hirer extends \yii\db\ActiveRecord
     public function getVacancies()
     {
         return $this->hasMany(Vacancy::className(), ['id_hirer' => 'id']);
-    }
-
-    public function getCity()
-    {
-        return $this->hasOne(City::className(), ['id' => 'id_city']);
     }
 }
