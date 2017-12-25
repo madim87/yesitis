@@ -6,7 +6,9 @@ use app\models\FormCity;
 use app\models\User;
 use app\models\Vacancy;
 use Yii;
+
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -75,6 +77,24 @@ class SiteController extends Controller
        // $str = Yii::t('app', '{n} запись|записи|записей', $cnt);
 
         $last = Vacancy::find()->orderBy(['id'=>SORT_DESC])->limit(5)->all();
+
+/*        $role = Yii::$app->authManager->createRole('admin');
+        $role->description = 'Админ';
+        Yii::$app->authManager->add($role);
+
+        $role = Yii::$app->authManager->createRole('aspirant');
+        $role->description = 'Соискатель';
+        Yii::$app->authManager->add($role);
+
+        $role = Yii::$app->authManager->createRole('hirer');
+        $role->description = 'Работадатель';
+        Yii::$app->authManager->add($role);
+
+        $role = Yii::$app->authManager->createRole(' guest');
+        $role->description = 'Гость';
+        Yii::$app->authManager->add($role);
+*/
+
         return $this->render('index',[
             'vacanciesAll' => $last,
             'cntVacancy' => $cnt,
@@ -88,7 +108,7 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
-    public function actionLogin()
+/*    public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
@@ -108,7 +128,7 @@ class SiteController extends Controller
      *
      * @return Response
      */
-    public function actionLogout()
+/*    public function actionLogout()
     {
         Yii::$app->user->logout();
 
@@ -146,6 +166,10 @@ class SiteController extends Controller
     public function actionPigi(){
         $form_city = new FormCity();
         return $this->render('pigi',compact('form_city'));
+    }
+
+    public function actionLogin(){
+        return $this->redirect(Url::to('/auth/login'));
     }
 
 }

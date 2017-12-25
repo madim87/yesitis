@@ -44,7 +44,6 @@ class Hirer extends \yii\db\ActiveRecord
     {
         return [
             [['description', 'short_desc'], 'string'],
-            [['file'], 'file'],
             [['year_begin', 'id_city', 'user_id', 'people'], 'integer'],
             [['name_hirer'], 'string', 'max' => 200],
             [['working'], 'string', 'max' => 250],

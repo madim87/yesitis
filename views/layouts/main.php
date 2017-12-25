@@ -3,10 +3,14 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use app\models\Aspirant;
+use app\models\Hirer;
+use app\models\Summary;
 use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -50,17 +54,53 @@ AppAsset::register($this);
             <a class="navbar-toggle" href="#" data-toggle="offcanvas"><i class="ti-menu"></i></a>
 
             <div class="logo-wrapper">
-                <a class="logo" href="<?=yii\helpers\Url::to(['site/index'])?>"><img src="img/logo.png" alt="logo"></a>
-                <a class="logo-alt" href="<?=yii\helpers\Url::to(['site/index'])?>"><img src="img/logo-alt.png" alt="logo-alt"></a>
+                <a class="logo" href="<?= Url::to(['site/index'])?>"><img src="img/logo.png" alt="logo"></a>
+                <a class="logo-alt" href="<?= Url::to(['site/index'])?>"><img src="img/logo-alt.png" alt="logo-alt"></a>
             </div>
 
         </div>
         <!-- END Logo -->
+<?php
 
+$id_user = Yii::$app->getUser()->id;
+$roles = Yii::$app->getAuthManager()->getRolesByUser(Yii::$app->getUser()->id);
+$role_hir = $roles['hirer']->name;
+$role_asp = $roles['aspirant']->name;
+//print_r($role_hir);
+//print_r($role_asp);
+//print_r($id_user);
+
+if ($role_hir == 'hirer'){
+    $id_hirer = Hirer::find()->where(['user_id'=>$id_user])->one()->id;
+    if ($id_hirer){
+        $url = Url::to(['hirer/hirermanage','id'=>$id_hirer]);
+    }else{
+        $url = Url::to(['hirer/hireradd','id'=>$id_hirer]);
+    }
+
+}elseif ($role_asp == 'aspirant'){
+    $id_aspirant = Aspirant::find()->where(['user_id'=>$id_user])->one()->id;
+    $id_summary = Summary::find()->where(['id_aspirant'=>$id_aspirant])->one()->id;
+    $url = Url::to(['summary/summary','id'=>$id_summary]);
+}
+//print_r($id_aspirant);
+if(Yii::$app->user->isGuest){
+    ?>
+    <div class="pull-right user-login">
+        <a class="btn btn-sm btn-primary" href="<?= Url::to(['auth/login'])?>">Вход</a> или <a href="<?= Url::to(['auth/registr'])?>">регистрация</a>
+    </div>
+        <?php
+}else{
+ ?>   <div class="pull-right user-login">
+        <a class="btn btn-sm btn-primary" href="<?= Url::to(['auth/logout'])?>" data-method="post">Выход</a>  <a href="<?=$url?>">личный кабинет</a>
+    </div>
+
+    <?php
+
+}
+?>
         <!-- User account -->
-        <div class="pull-right user-login">
-            <a class="btn btn-sm btn-primary" href="user-login.html">Login</a> or <a href="user-register.html">register</a>
-        </div>
+
         <!-- END User account -->
 
         <!-- Navigation menu -->
@@ -76,7 +116,7 @@ AppAsset::register($this);
                 <a href="<?=yii\helpers\Url::to(['vacancy/vacancylist'])?>">Вакансии</a>
                 <ul>
                     <li><a href="<?=yii\helpers\Url::to(['vacancy/vacancylist'])?>">Список вакансий</a></li>
-                    <li><a href="job-list-2.html">Опубликовать вакансию</a></li>
+                    <li><a href="<?=yii\helpers\Url::to(['vacancy/vacancyadd'])?>">Опубликовать вакансию</a></li>
                 </ul>
             </li>
             <li>

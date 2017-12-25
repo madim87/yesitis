@@ -29,7 +29,7 @@ use yii\widgets\ActiveForm;
                     ->label('')
                     ->input('text', [
 
-                        'placeholder' => 'Название вакансии, тайтл',
+                        'placeholder' => 'Название вакансии, тайтл'
                     ]) ?>
             </div>
 
@@ -253,14 +253,14 @@ use yii\widgets\ActiveForm;
             ?>
             <p class="text-center">опубликовать или сохранить вакансию</p>
             <p class="text-center">
-            <?=$form->field($vacancy_mod, 'public')
-                ->label('')
-                ->radioList([
-                    '1' => 'Опубликовать',
-                    '2' => 'Сохранить',
+                <?=$form->field($vacancy_mod, 'public')
+                    ->label('')
+                    ->radioList([
+                        '1' => 'Опубликовать',
+                        '2' => 'Сохранить',
                     ],[
                         'class' => 'text-center'
-            ])?>
+                    ])?>
             </p>
             <p class="text-center">
                 <span>

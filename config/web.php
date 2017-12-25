@@ -68,6 +68,7 @@ $config = [
                 '/hirer<id:\d+>'=>'hirer/hirer',
                 '/'=>'site/index',
                 '/about'=>'site/about'
+
             ],
         ],
 

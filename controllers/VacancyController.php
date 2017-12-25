@@ -17,13 +17,46 @@ use app\models\SkillStatus;
 use app\models\TypeWorkTime;
 use app\models\Vacancy;
 use app\models\VacExperience;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
+use Yii;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use app\models\Hirer;
 
 class VacancyController extends Controller
 {
+
+    public function behaviors()
+    {
+        return [
+           /* 'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['vacancylist','vacancy','vacancyadd','vacancyedit'],
+                'rules' => [
+                    [
+                        'actions' => ['vacancylist','vacancy'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['vacancyadd','vacancyedit'],
+                        'allow' => true,
+                        'roles' => ['admin','hirer']
+                    ]
+                ],
+            ],*/
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
     public function actionVacancylist()
     {
 //==========формирование условий для фильтра занятости и категории
@@ -165,6 +198,56 @@ class VacancyController extends Controller
 
     public function actionVacancyadd()
     {
+        if(Yii::$app->getUser()){
+            $role = Yii::$app->authManager->getRolesByUser(Yii::$app->user->id);
+//            var_dump($role);
+//            var_dump(Yii::$app->user->id);
+           if(empty($role)|| $role->name=='aspirant'){
+            //   throw new AccessDeniedException();
+           }
+        }
+        $typeworks = TypeWorkTime::find()->all();
+        $items_typework = ArrayHelper::map($typeworks,'id','type_work');
+        $cities = City::find()->all();
+        $city_params = ArrayHelper::map($cities,'id','name');
+        $currencies = Currency::find()->all();
+        $items_currency = ArrayHelper::map($currencies,'id','name');
+        $vac_experiences = VacExperience::find()->all();
+        $items_experience = ArrayHelper::map($vac_experiences,'id','value');
+        $skills = SkillStatus::find()->all();
+        $items_skills = ArrayHelper::map($skills,'id','status');
+        $vakancy = new Vacancy();
+        $categories = Category::find()->all();
+        $items_categories = ArrayHelper::map($categories,'id','name_category');
+        //print_r($_POST);
+        if($vakancy->load(Yii::$app->request->post())){
+            if($vakancy->validate()){
+                $vakancy->save();
+            }else {
+                return print_r($vakancy->getErrors());
+            }
+        }
+//        print_r($items_skills);
+        return $this->render('vacancyadd',[
+            'typeworks'=>$typeworks,
+            'cities'=>$cities,
+            'items_city'=>$city_params,
+            'items_typework'=>$items_typework,
+            'items_currency'=>$items_currency,
+            'items_experience'=>$items_experience,
+            'items_skills'=>$items_skills,
+            'items_categories'=>$items_categories,
+            'currencies'=>$currencies,
+            'vacExperiences'=>$vac_experiences,
+            'skills'=>$skills,
+            'vacancy_mod'=> $vakancy,
+
+
+        ]);
+    }
+
+    public function actionVacancyedit($id)
+    {
 
         $typeworks = TypeWorkTime::find()->all();
         $items_typework = ArrayHelper::map($typeworks,'id','type_work');
@@ -176,7 +259,16 @@ class VacancyController extends Controller
         $items_experience = ArrayHelper::map($vac_experiences,'id','value');
         $skills = SkillStatus::find()->all();
         $items_skills = ArrayHelper::map($skills,'id','status');
-//        print_r($items_skills);
+        $vakancy = Vacancy::findOne(['id'=>$id]);
+
+        //print_r($_POST);
+        if($vakancy->load(Yii::$app->request->post())){
+            if($vakancy->validate()){
+                $vakancy->save();
+            }else {
+                return print_r($vakancy->getErrors());
+            }
+        }
         return $this->render('vacancyadd',[
             'typeworks'=>$typeworks,
             'cities'=>$cities,
@@ -188,11 +280,15 @@ class VacancyController extends Controller
             'currencies'=>$currencies,
             'vacExperiences'=>$vac_experiences,
             'skills'=>$skills,
-            'vacancy_mod'=> new Vacancy(),
+            'vacancy_mod'=> $vakancy,
 
 
         ]);
     }
 
+    public function actionVacancymanage()
+    {
+        return $this->render('vacancymanage');
+    }
 
 }

@@ -56,7 +56,7 @@ class Vacancy extends \yii\db\ActiveRecord
             [['demands', 'conditions', 'discription'], 'string'],
             [['work_time', 'wage', 'id_hirer', 'id_category', 'id_tech_leng', 'experience_id', 'currency_id', 'type_work_id', 'status_id', 'id_city', 'public'], 'integer'],
             [['date_public'], 'safe'],
-            [['public'], 'required'],
+            [['public'],  'default', 'value' =>1],
             [['name', 'shortDiscription'], 'string', 'max' => 255],
             [['adress'], 'string', 'max' => 50],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => SkillStatus::className(), 'targetAttribute' => ['status_id' => 'id']],
@@ -109,7 +109,7 @@ class Vacancy extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getStatus()
+    public function getSkillStatus()
     {
         return $this->hasOne(SkillStatus::className(), ['id' => 'status_id']);
     }
@@ -157,7 +157,7 @@ class Vacancy extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getExperience()
+    public function getVacExperience()
     {
         return $this->hasOne(VacExperience::className(), ['id' => 'experience_id']);
     }
@@ -165,10 +165,6 @@ class Vacancy extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTypeWork()
-    {
-        return $this->hasOne(TypeWorkTime::className(), ['id' => 'type_work_id']);
-    }
 
     public function getTypeWorkTime()
     {
